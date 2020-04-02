@@ -90,38 +90,35 @@ export default class App extends Component {
 // наш компонент postList будет принимать еще два обработчика событий
 // приставка on в названиях функций говорит что это обработчики событий
 
-    onToggleImportant(id) {   // id -  чтобы знать какой пост был отмечен
-        // console.log(`Important ${id}`);
-        this.setState(({data})=>{ 
-          
-                const index = data.findIndex(elem => elem.id===id); // если наш id совпадает с тем который был передан нашей функции
-                const old = data[index];
-                const newItem = {...old, important: !old.important}
-                const newArr = [...data.slice(0, index), newItem, ...data.slice(index+1)];
-                
-                return {
-                    data: newArr
-                }
-        }); 
-    
 
+
+// ...................................Домашняя работа
+
+    onToggleImportant(id) {   // id -  чтобы знать какой пост был отмечен
+      this.makeArray(id,'important')  
     }
 
     onToggleLiked(id) { // id -  чтобы знать какой пост был отмечен
-        
-        this.setState(({data})=>{ 
+        this.makeArray(id,'like')  ;    
+     }
+ 
+    makeArray(id, property) {
+        return (
+            this.setState(({data})=>{ 
        
-            const index = data.findIndex(elem => elem.id === id); // если наш id совпадает с тем который был передан нашей функции
-            const old = data[index];
-            const newItem = {...old, like: !old.like}
-            const newArr = [...data.slice(0, index), newItem, ...data.slice(index+1)];
-           
-            return {
-                data: newArr
-            }
-        });        
+                const index = data.findIndex(elem => elem.id === id); // если наш id совпадает с тем который был передан нашей функции
+                const old = data[index];
+                const newItem = property==='like'? {...old, like: !old.like}:{...old, important: !old.important}
+                const newArr = [...data.slice(0, index), newItem, ...data.slice(index+1)];
+               
+                return {
+                    data: newArr
+                }
+            })
+        );
     }
-
+/////////////////////////////////////////////////////////////////////////////////////////////
+    
     render () {
         const {data, term, filter  } = this.state // вытаскиваем data
         const liked = data.filter(item => item.like).length; //true (получим массив и количество элементов узнаем через length)
