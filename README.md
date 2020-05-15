@@ -1,3 +1,11 @@
-Это небольшая программа, наподобие Твиттер.  
+This is a small program like Twitter.
 
-Запуск:
+install:
+
+npm i
+
+Quick Start:
+
+cd Chat
+
+npm start
